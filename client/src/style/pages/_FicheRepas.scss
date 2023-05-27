@@ -1,0 +1,107 @@
+form{
+    display: flex;
+    justify-content: space-around;
+
+}
+.recipe-table{
+    padding: 20px;
+    margin-top: 50px;
+    color: #000000;
+    height: 420px;width: 65%;
+    border: 1px solid #000000;
+    border-radius: 5px;
+    background-color: #ffffffc6;
+    transition: all 1s ease;
+    transform: scale(1);
+    align-items: center;
+    &:hover{
+        z-index: 1;
+        transform: scale(1.05);
+    }
+    .table-img{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        
+        .image-bloc{
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: left;margin-right: -20px;
+            // margin-left: 20px;
+            img{
+                border-radius: 5px;
+                width: 180px;
+                height: 160px;
+                margin: 20px;
+                margin-top: 50px;
+                box-shadow: 0 1px 5px 2px rgba(152, 152, 172, 0.25);
+            
+            }
+            input[type=file]{
+                margin: 20px;
+                margin-top: 0px;
+            }
+        }
+        table{
+            width: 100%;
+            margin: 20px;
+            margin-top: 30px;
+            tr{
+                height: 30px;
+                td{
+                padding: 10px; 
+
+                .name-value, textarea{
+                        // height: 25px;
+                        width: 90%;
+                        padding: 10px;
+                        font-size: 16px;
+                        border: none;
+                        outline: none;
+                        border-bottom: #d8d8d897 1px solid;
+                        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        
+                    }
+                }
+                
+            }
+            
+        }
+        
+    }
+    .button-delete, input[type=submit]{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        background-color: black;
+        color: white;
+        border: none;
+        font-size: 14px;
+        padding: 10px;
+        width: 20%;
+        margin-right: 0;
+        border-radius: 5px;
+        position: absolute;
+        span{
+            margin: 10px;
+            text-align: center;
+        }
+        &:hover{
+            color: #000000;
+            background-color: rgb(255, 255, 255);
+            text-decoration: none;
+            border: #000000 1px solid;
+            cursor: pointer;
+        }
+    }
+    
+    .button-delete, input[type=submit]{
+        
+        bottom: 45px;
+        right: 45px;
+        
+    }
+}

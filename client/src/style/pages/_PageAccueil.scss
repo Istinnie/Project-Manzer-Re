@@ -1,0 +1,144 @@
+
+section{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+    padding: auto;
+    z-index: 2;
+    margin-bottom: 50px;
+}
+.preambule-content{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    .content-title{
+        width: 100%;
+        text-align: center;
+        margin-right: 10%;
+        
+    }
+    
+        .content-form{
+        
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin-top: 30px;
+        margin-bottom: 30px;
+        width: 50%;
+        margin: auto;
+        input[type=text] {
+            height: 25px;
+            width: 50%;
+            border-radius: 10px;
+            padding: 10px;
+            padding-left: 40px;margin: auto;
+            margin-bottom: 30px;
+            margin-top: 30px;
+            box-shadow: 0 1px 5px 2px rgba(152, 152, 172, 0.25);
+            background: transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' class='bi bi-search' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'%3E%3C/path%3E%3C/svg%3E") no-repeat 13px center;
+            box-shadow: 1px;
+            font-size: 16px;
+            border: none;
+            outline: none;
+            
+        }
+        
+
+    }
+    .form-secteur{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        width: 100%;
+        margin-bottom: 20px;
+    }
+    
+    
+}
+
+
+.repas-container{
+    
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+}
+
+
+.main {
+    display: block;
+    position: relative;
+    padding-left: 30px;
+    margin-bottom: 15px;
+    cursor: pointer;
+    font-size: 16px;
+}
+  
+/* Hide the default checkbox */
+input[type=checkbox] {
+    visibility: hidden;
+}
+  
+/* Creating a custom checkbox
+based on demand */
+.geekmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    border-radius: 5px;
+    border:rgba(109, 109, 109, 0.481) 1px solid;
+    
+}
+  
+/* Specify the background color to be
+shown when hovering over checkbox */
+.main:hover input ~ .geekmark {
+    background-color: rgba(208, 208, 208, 0.471);
+}
+  
+/* Specify the background color to be
+shown when checkbox is active */
+.main input:active ~ .geekmark {
+    background-color: rgb(42, 42, 42);
+}
+  
+/* Specify the background color to be
+shown when checkbox is checked */
+.main input:checked ~ .geekmark {
+    background-color: rgb(0, 0, 0);
+}
+  
+/* Checkmark to be shown in checkbox */
+/* It is not be shown when not checked */
+.geekmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+  
+/* Display checkmark when checked */
+.main input:checked ~ .geekmark:after {
+    display: block;
+}
+  
+/* Styling the checkmark using webkit */
+/* Rotated the rectangle by 45 degree and 
+showing only two border to make it look
+like a tickmark */
+.main .geekmark:after {
+    left: 5px;
+    bottom: 5px;
+    width: 6px;
+    height: 12px;
+    border: solid rgb(255, 255, 255);
+    border-radius: 2px;
+    border-width: 0 4px 4px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
