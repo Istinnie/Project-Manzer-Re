@@ -10,7 +10,7 @@ function NavBar() {
         <div>
           <ul>
             <li>
-              <Link to={"/"}>Accueil</Link>
+              <Link to={"/accueil"}>Accueil</Link>
             </li>
             <li>
               <Link to={"/repas"}>Profil</Link>

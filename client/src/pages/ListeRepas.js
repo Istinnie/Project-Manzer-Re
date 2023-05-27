@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import Repas from "../components/Repas";
 import NavBar from "../components/NavBar";
 import backImg from "../assets/img/repas-back.png";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import axios from "axios";
 const ListeRepas = () => {
   window.scrollTo(0, 0);
   let [data, setData] = useState([]);
-  let [query, setQuery] = useState("e");
+  // let [query, setQuery] = useState("e");
 
   // let [sortMethod, setSortMethod] = useState("top");
 
