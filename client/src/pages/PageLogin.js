@@ -31,7 +31,7 @@ const PageLogin = () => {
     setLoginData(data);
     localStorage.setItem("loginData", JSON.stringify(data));
   };
-  console.log(process.env.REACT_APP_CLIENT_ID);
+
   return (
     <div className="login-section">
       <div className="login-logo-left">
@@ -50,7 +50,7 @@ const PageLogin = () => {
           ) : (
             <GoogleLogin
               clientId={process.env.REACT_APP_CLIENT_ID}
-              buttonText="Se connecter avec Google"
+              buttonText="Connexion"
               onSuccess={handleLogin}
               onFailure={handleFailure}
               cookiePolicy={"single_host_origin"}

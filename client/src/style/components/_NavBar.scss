@@ -47,17 +47,50 @@ nav{
         flex-direction: column;
         justify-content: space-around;
         position: absolute;
-        right: 20px;
+        right: 10px;
         span{
             margin-bottom: 5px;
         }
-        .deconnect-link{
-            margin-right: -50px;
-            &:hover{
-                font-weight: bold;
+        .deconnect-bloc{
+            display: flex;
+            flex-direction: column;
+            justify-content: end;
+            margin-top: -25px;
+            .mail-content{
+                text-align: right;
+                color: #8c0000;
+            }
+            .deconnect-link{
+                position: absolute;
+                right: 0px;
+                margin-top: 5px;
+                text-align: right;
+                cursor: pointer;
+                &:hover{
+                    font-weight: bold;
+                    transition: 1s;
+                }
             }
         }
         
+        .connect-link{
+            border:none;
+        }
+        div svg{
+            display: none;
+        }
+        button{
+            width: 110px;
+            border: none;
+            cursor: pointer;
+            height: 30px;
+            span{
+                margin-left: -10px;
+                color: #000000;
+                font-weight: bold;
+                
+            }
+        }
     }
 }
 

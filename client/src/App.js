@@ -6,7 +6,7 @@ import FicheRepas from "./pages/FicheRepas";
 import AjoutRepas from "./pages/AjoutRepas";
 import axios from "axios";
 import env from "react-dotenv";
-import PageLogin from "./pages/PageLogin";
+// import PageLogin from "./pages/PageLogin";
 function App() {
   return (
     <div>
@@ -14,8 +14,8 @@ function App() {
 
       <div className="container mt-3">
         <Routes>
-          <Route path="/" element={<PageLogin />} />
-          <Route path="/accueil" element={<PageAccueil />} />
+          {/* <Route path="/" element={<PageLogin />} /> */}
+          <Route path="/" element={<PageAccueil />} />
           <Route path="/repas" element={<ListeRepas />} />
           <Route path="/ficheRepas/:id" element={<FicheRepas />} />
           <Route path="/ficheRepas" element={<AjoutRepas />} />
