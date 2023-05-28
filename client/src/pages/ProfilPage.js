@@ -70,7 +70,10 @@ const ProfilPage = () => {
         <div className="login-logo-left">
           <img src={Logo} alt="Logo" />
         </div>
-        <div className="login-content">
+        <div
+          className="login-content"
+          style={{ height: "360px", marginTop: "90px" }}
+        >
           <div>
             <h3>Profil</h3>
             {/* <button onClick={handleLogout} className="button-delete">
@@ -111,9 +114,9 @@ const ProfilPage = () => {
                     <input
                       type="text"
                       name="restaurant"
-                      defaultValue={getUser.restaurant}
+                      value={getUser.restaurant}
                       className="name-value"
-                      onChange={(e) => setRestaurant(e.target.value)}
+                      // onChange={(e) => setRestaurant(e.target.value)}
                     />
                   </td>
                 </tr>
@@ -130,6 +133,7 @@ const ProfilPage = () => {
                       onChange={(e) => {
                         setSecteur(e.target.value);
                       }}
+                      disabled
                     >
                       <option value="Nord">Nord</option>
                       <option value="Ouest">Ouest</option>

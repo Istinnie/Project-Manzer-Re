@@ -3,6 +3,7 @@ import logo from "../assets/img/logo-manzer.png";
 import { Link, useNavigate } from "react-router-dom";
 import GoogleLogin from "react-google-login";
 import { gapi } from "gapi-script";
+import axios from "axios";
 function NavBar() {
   const navigate = useNavigate();
   gapi.load("client:auth2", () => {
@@ -16,6 +17,7 @@ function NavBar() {
       ? JSON.parse(localStorage.getItem("loginData"))
       : null
   );
+
   const handleLogout = () => {
     localStorage.removeItem("loginData");
     setLoginData(null);

@@ -1,11 +1,10 @@
 import GoogleLogin from "react-google-login";
 import Logo from "../assets/img/logo-login.png";
-import { useState } from "react";
-import axios from "axios";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 import { gapi } from "gapi-script";
-import NavBar from "../components/NavBar";
-import { useParams } from "react-router-dom";
+
 const PageLogin = () => {
   const navigate = useNavigate();
   gapi.load("client:auth2", () => {
@@ -24,6 +23,25 @@ const PageLogin = () => {
     setLoginData(null);
     navigate("/");
   };
+
+  let exist = false;
+  const [getUser, setgetUser] = useState([]);
+
+  const fetchGetUser = async () => {
+    await axios
+      .get(`http://localhost:5000/api/user/${loginData.email}`)
+      .then((response) => {
+        if (response.data.length >= 1) {
+          exist = true;
+          setgetUser(response.data[0]);
+        }
+        console.log(getUser.restaurant);
+      });
+  };
+
+  useEffect(() => {
+    fetchGetUser();
+  }, []);
 
   let nomUser = loginData.name,
     mailuser = loginData.email;
@@ -104,43 +122,74 @@ const PageLogin = () => {
                 <tr>
                   <td>Restaurant</td>
                   <td>
-                    <input
-                      type="text"
-                      name="restaurant"
-                      defaultValue={restaurant}
-                      onChange={(e) => setRestaurant(e.target.value)}
-                      className="name-value"
-                    />
+                    {exist ? (
+                      <input
+                        type="text"
+                        name="restaurant"
+                        defaultValue={""}
+                        onChange={(e) => setRestaurant(e.target.value)}
+                        className="name-value"
+                      />
+                    ) : (
+                      // si l'utilisateur existe
+                      <input
+                        type="text"
+                        name="restaurant"
+                        value={getUser.restaurant}
+                        className="name-value"
+                      />
+                    )}
                   </td>
                 </tr>
                 <tr>
                   <td>Secteur</td>
                   <td>
-                    <select
-                      name="secteur"
-                      id="secteur"
-                      defaultValue={secteur}
-                      onChange={(e) => {
-                        setSecteur(e.target.value);
-                        // console.log(e.target.value);
-                      }}
-                    >
-                      <option value="Nord">Nord</option>
-                      <option value="Ouest">Ouest</option>
-                      <option value="Sud">Sud</option>
-                      <option value="Est">Est</option>
-                    </select>
+                    {exist ? (
+                      <select
+                        name="secteur"
+                        id="secteur"
+                        defaultValue={secteur}
+                        onChange={(e) => {
+                          setSecteur(e.target.value);
+                          // console.log(e.target.value);
+                        }}
+                      >
+                        <option value="Nord">Nord</option>
+                        <option value="Ouest">Ouest</option>
+                        <option value="Sud">Sud</option>
+                        <option value="Est">Est</option>
+                      </select>
+                    ) : (
+                      // si l'utilisateur existe
+                      <select
+                        name="secteur"
+                        id="secteur"
+                        value={getUser.secteur}
+                        disabled
+                      >
+                        <option value="Nord">Nord</option>
+                        <option value="Ouest">Ouest</option>
+                        <option value="Sud">Sud</option>
+                        <option value="Est">Est</option>
+                      </select>
+                    )}
                   </td>
                 </tr>
               </table>
 
-              <div className="btn-foot">
+              <div className="btn-foot" style={{ marginTop: "30px" }}>
                 <div className="button-register" onClick={handleLogout}>
                   <span>Déconnexion</span>
                 </div>
-                <div className="button-register">
-                  <input type="submit" value={"Enregistrer"} />
-                </div>
+                {exist ? (
+                  <div className="button-register">
+                    <input type="submit" value={"Enregistrer"} />
+                  </div>
+                ) : (
+                  <div className="button-register">
+                    <Link to={"/repas"}>Continuer</Link>
+                  </div>
+                )}
               </div>
             </form>
           </div>

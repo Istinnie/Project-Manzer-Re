@@ -70,10 +70,11 @@
                     margin: 10px;
                     text-align: center;
                     
-                    span, input[type=submit]{
+                    span, input[type=submit],a{
                         // display: flex;
                         // flex-direction: row;
                         // justify-content: center;
+                        text-decoration: none;
                         align-items: center;
                         background-color: black;
                         color: white;
