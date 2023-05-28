@@ -7,6 +7,7 @@ const db = {};
 db.mongoose = mongoose;
 db.url = dbConfig.url;
 db.repas = require("./repas.model.js")(mongoose);
+db.user = require("./user.model.js")(mongoose);
 
 module.exports = db;
 

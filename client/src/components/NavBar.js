@@ -40,7 +40,10 @@ function NavBar() {
     const data = await res.json();
     setLoginData(data);
     localStorage.setItem("loginData", JSON.stringify(data));
-    navigate("/profil");
+    // si le restaurant n'existe pas encore
+    navigate("/addProfil");
+    // si le resto existe déjà
+    // navigate("/profil")
   };
   // source : https://www.google.com/search?q=login+google+using+react+js&rlz=1C1VDKB_frRE1013RE1013&sxsrf=APwXEdd2sbMqi-8rEFxv5EYlWJrZrKIYcg%3A1685186326654&ei=FudxZPiuJ4mTkdUPqb-9wAk&ved=0ahUKEwj4kYWjsJX_AhWJSaQEHalfD5gQ4dUDCA8&uact=5&oq=login+google+using+react+js&gs_lcp=Cgxnd3Mtd2l6LXNlcnAQAzIFCCEQoAE6BwgjEOoCECc6CAgAEIoFEJECOgUIABCABDoLCC4QgAQQxwEQ0QM6BQguEIAEOgwIIxCKBRATEIAEECc6BAgjECc6BwgjEIoFECc6BwgAEIoFEEM6BQgAEMsBOgsILhDHARCvARDLAToGCAAQFhAeOggIABCKBRCGAzoICAAQCBAeEA1KBAhBGABQoBpYsHxghH5oAXABeACAAcgFiAG7SJIBDDItMy4xOS4xLjIuMZgBAKABAbABCsABAQ&sclient=gws-wiz-serp#fpstate=ive&vld=cid:3fb0beea,vid:75aTZq-qoZk
   return (

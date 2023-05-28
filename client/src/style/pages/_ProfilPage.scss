@@ -41,11 +41,11 @@
                     height: 30px;
                     width: auto;
                     td{
-                    padding: 10px; 
-                    text-align: right;
-                    .name-value, textarea{
+                        padding: 10px; 
+                        text-align: right;
+                        .name-value, select{
                             // height: 25px;
-                            width: 150%;
+                            width: 140%;
                             padding: 10px;
                             font-size: 16px;
                             border: none;
@@ -54,6 +54,7 @@
                             font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
             
                         }
+                    
                     }
                     
                 }
