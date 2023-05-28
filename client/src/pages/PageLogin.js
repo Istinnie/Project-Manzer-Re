@@ -86,7 +86,10 @@ const PageLogin = () => {
         <div className="login-logo-left">
           <img src={Logo} alt="Logo" />
         </div>
-        <div className="login-content" style={{ marginTop: "80px" }}>
+        <div
+          className="login-content"
+          style={{ marginTop: "110px", height: "420px" }}
+        >
           <div>
             <h3>Informations du restaurant</h3>
 
