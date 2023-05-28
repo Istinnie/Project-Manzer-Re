@@ -32,7 +32,7 @@ const PageLogin = () => {
       .get(`http://localhost:5000/api/user/${loginData.email}`)
       .then((response) => {
         if (response.data.length >= 1) {
-          exist = true;
+          exist = true; // faire un hook avec cette variable
           setgetUser(response.data[0]);
         }
         console.log(getUser.restaurant);
