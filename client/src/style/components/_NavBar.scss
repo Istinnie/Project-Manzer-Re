@@ -61,7 +61,16 @@ nav{
             margin-top: -5px;
             .mail-content{
                 text-align: right;
-                color: #8c0000;
+                
+                a{
+                    color: #8c0000;
+                    text-decoration: none;
+                    &:hover{
+                        transition: 1s;
+                        color: #9d9c9c;
+                        text-decoration: underline;
+                    }
+                }
             }
             .deconnect-link{
                 position: absolute;

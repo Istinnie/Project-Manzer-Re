@@ -6,6 +6,7 @@ import FicheRepas from "./pages/FicheRepas";
 import AjoutRepas from "./pages/AjoutRepas";
 import axios from "axios";
 import env from "react-dotenv";
+import ProfilPage from "./pages/ProfilPage";
 // import PageLogin from "./pages/PageLogin";
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           {/* <Route path="/" element={<PageLogin />} /> */}
           <Route path="/" element={<PageAccueil />} />
           <Route path="/repas" element={<ListeRepas />} />
+          <Route path="/profil" element={<ProfilPage />} />
           <Route path="/ficheRepas/:id" element={<FicheRepas />} />
           <Route path="/ficheRepas" element={<AjoutRepas />} />
         </Routes>

@@ -63,7 +63,7 @@ const ListeRepas = () => {
         </div>
         <div className="preambule-content-profile">
           <div className="content-title-profile">
-            <h2>Profil</h2>
+            <h2>Nos repas</h2>
           </div>
           <div className="content-form">
             <form onSubmit={searchSubmit}>

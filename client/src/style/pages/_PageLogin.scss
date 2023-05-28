@@ -26,10 +26,10 @@
         }
         div{
             margin-top: 10px;
-            &:hover{
-                transition: 1s;
-                transform: scale(1.1);
-            }
+            // &:hover{
+            //     transition: 1s;
+            //     transform: scale(1.1);
+            // }
         }
     }
     // .login-logo-right{
@@ -40,7 +40,7 @@
     // }
     .login-logo-left{
         position: fixed;
-        top: 10vh;
+        top: 8vh;
         left: 0;
         z-index: 1;
     }
