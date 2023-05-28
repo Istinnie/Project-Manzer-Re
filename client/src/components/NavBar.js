@@ -42,47 +42,65 @@ function NavBar() {
   // source : https://www.google.com/search?q=login+google+using+react+js&rlz=1C1VDKB_frRE1013RE1013&sxsrf=APwXEdd2sbMqi-8rEFxv5EYlWJrZrKIYcg%3A1685186326654&ei=FudxZPiuJ4mTkdUPqb-9wAk&ved=0ahUKEwj4kYWjsJX_AhWJSaQEHalfD5gQ4dUDCA8&uact=5&oq=login+google+using+react+js&gs_lcp=Cgxnd3Mtd2l6LXNlcnAQAzIFCCEQoAE6BwgjEOoCECc6CAgAEIoFEJECOgUIABCABDoLCC4QgAQQxwEQ0QM6BQguEIAEOgwIIxCKBRATEIAEECc6BAgjECc6BwgjEIoFECc6BwgAEIoFEEM6BQgAEMsBOgsILhDHARCvARDLAToGCAAQFhAeOggIABCKBRCGAzoICAAQCBAeEA1KBAhBGABQoBpYsHxghH5oAXABeACAAcgFiAG7SJIBDDItMy4xOS4xLjIuMZgBAKABAbABCsABAQ&sclient=gws-wiz-serp#fpstate=ive&vld=cid:3fb0beea,vid:75aTZq-qoZk
   return (
     <nav>
-      <div className="menu-root">
-        <img src={logo} alt="" className="" />
+      {loginData ? (
         <div>
-          <ul>
-            <li>
-              <Link to={"/"}>Accueil</Link>
-            </li>
-            <li>
-              <Link to={"/repas"}>Profil</Link>
-            </li>
-            <li>
-              <Link to={"/ficheRepas"}>Créer un repas</Link>
-            </li>
-          </ul>
-        </div>
-      </div>
-      <div className="log-info">
-        {loginData ? (
-          <div className="deconnect-bloc">
-            <span className="mail-content">{loginData.email}</span>
-            <span className="deconnect-link">
-              <a onClick={handleLogout} className="deconnect-link">
-                Déconnexion
-              </a>
-            </span>
+          <div className="menu-root">
+            <img src={logo} alt="" className="" />
+            <div>
+              <ul>
+                <li>
+                  <Link to={"/"}>Accueil</Link>
+                </li>
+                <li>
+                  <Link to={"/repas"}>Profil</Link>
+                </li>
+                <li>
+                  <Link to={"/ficheRepas"}>Créer un repas</Link>
+                </li>
+              </ul>
+            </div>
           </div>
-        ) : (
-          <GoogleLogin
-            clientId={process.env.REACT_APP_CLIENT_ID}
-            buttonText="Connexion"
-            onSuccess={handleLogin}
-            onFailure={handleFailure}
-            cookiePolicy={"single_host_origin"}
-            className="connect-link"
-          ></GoogleLogin>
-        )}
-
-        {/* <span className="deconnect-link">
-          <Link to={"/"}>Connexion</Link>
-        </span> */}
-      </div>
+          <div className="log-info">
+            <div className="deconnect-bloc">
+              <span className="mail-content">{loginData.email}</span>
+              <span className="deconnect-link">
+                <a onClick={handleLogout} className="deconnect-link">
+                  Déconnexion
+                </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <div>
+          <div className="menu-root">
+            <img src={logo} alt="" className="" />
+            <div>
+              <ul>
+                <li>
+                  <Link to={"/"}>Accueil</Link>
+                </li>
+                {/* <li>
+                  <Link to={"/repas"}>Profil</Link>
+                </li>
+                <li>
+                  <Link to={"/ficheRepas"}>Créer un repas</Link>
+                </li> */}
+              </ul>
+            </div>
+          </div>
+          <div className="log-info">
+            <GoogleLogin
+              clientId={process.env.REACT_APP_CLIENT_ID}
+              buttonText="Connexion"
+              onSuccess={handleLogin}
+              onFailure={handleFailure}
+              cookiePolicy={"single_host_origin"}
+              className="connect-link"
+            ></GoogleLogin>
+          </div>
+        </div>
+      )}
     </nav>
   );
 }
