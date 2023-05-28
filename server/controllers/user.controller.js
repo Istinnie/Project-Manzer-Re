@@ -66,25 +66,39 @@ exports.findOne = (req, res) => {
 
 // Update a User by the id in the request
 exports.update = (req, res) => {
-  if (!req.body) {
-    return res.status(400).send({
-      message: "Data to update can not be empty!",
-    });
-  }
+  // if (!req.body) {
+  //   return res.status(400).send({
+  //     message: "Data to update can not be empty!",
+  //   });
+  // }
 
-  const id = req.params.id;
+  // const id = req.params.id;
 
-  User.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
+  // User.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
+  //   .then((data) => {
+  //     if (!data) {
+  //       res.status(404).send({
+  //         message: `Cannot update User with id=${id}. Maybe User was not found!`,
+  //       });
+  //     } else res.send({ message: "User was updated successfully." });
+  //   })
+  //   .catch((err) => {
+  //     res.status(500).send({
+  //       message: "Error updating User with id=" + id,
+  //     });
+  //   });
+  const email = req.query.email;
+  var condition = email
+    ? { email: { $regex: new RegExp(email), $options: "i" } }
+    : {};
+
+  User.find(condition)
     .then((data) => {
-      if (!data) {
-        res.status(404).send({
-          message: `Cannot update User with id=${id}. Maybe User was not found!`,
-        });
-      } else res.send({ message: "User was updated successfully." });
+      res.send(data);
     })
     .catch((err) => {
       res.status(500).send({
-        message: "Error updating User with id=" + id,
+        message: err.message || "Some error occurred while retrieving user.",
       });
     });
 };
@@ -127,16 +141,15 @@ exports.deleteAll = (req, res) => {
     });
 };
 
-// Find all image Users
-// exports.findAllPublished = (req, res) => {
-//   Tutorial.find({ published: true })
-//     .then((data) => {
-//       res.send(data);
-//     })
-//     .catch((err) => {
-//       res.status(500).send({
-//         message:
-//           err.message || "Some error occurred while retrieving tutorials.",
-//       });
-//     });
-// };
+// Find user by email
+exports.findRestaurantInfo = (req, res) => {
+  User.find({ email: req.params.email })
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: err.message || "Some error occurred while retrieving Users.",
+      });
+    });
+};

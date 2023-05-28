@@ -1,11 +1,11 @@
 import GoogleLogin from "react-google-login";
 import Logo from "../assets/img/logo-login.png";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { gapi } from "gapi-script";
 import NavBar from "../components/NavBar";
+import axios from "axios";
 const ProfilPage = () => {
-  const navigate = useNavigate();
   gapi.load("client:auth2", () => {
     gapi.auth2.init({
       clientId: process.env.REACT_APP_CLIENT_ID,
@@ -17,37 +17,51 @@ const ProfilPage = () => {
       ? JSON.parse(localStorage.getItem("loginData"))
       : null
   );
-  const handleLogout = () => {
-    localStorage.removeItem("loginData");
-    setLoginData(null);
-    navigate("/");
+
+  //   let mailuser = loginData.email;
+  const [getUser, setgetUser] = useState([]);
+
+  const fetchGetUser = async () => {
+    await axios
+      .get(`http://localhost:5000/api/user/${loginData.email}`)
+      .then((response) => {
+        setgetUser(response.data[0]);
+      });
   };
 
-  const handleFailure = (result) => {
-    // alert(result);
-    console.log(result);
-  };
-  const handleLogin = async (googleData) => {
-    // console.log(googleData);
-    const res = await fetch("api/google-login", {
-      method: "POST",
-      body: JSON.stringify({
-        token: googleData.tokenId,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const data = await res.json();
-    setLoginData(data);
-    localStorage.setItem("loginData", JSON.stringify(data));
-    navigate("/profil");
-  };
+  useEffect(() => {
+    fetchGetUser();
+  }, []);
 
-  let nomUser = loginData.name,
-    mailuser = loginData.email,
-    restuser,
-    secteuruser;
+  // ----------------------
+  // update step
+  // ----------------------
+  const [nom, setName] = useState(loginData.name);
+  const [email, setEmail] = useState(loginData.email);
+  const [restaurant, setRestaurant] = useState();
+  const [secteur, setSecteur] = useState();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log({ nom, email, restaurant, secteur });
+
+    await axios
+      .put(`http://localhost:5000/api/user/${email}`, {
+        nom,
+        email,
+        restaurant,
+        secteur,
+      })
+      .then((response) => {
+        console.log(response.data);
+        if (response.status === 200) {
+          alert("Informations modifiées avec succès");
+        }
+
+        window.location.reload();
+        // Handle response
+      });
+  };
+  //   console.log(getUser.secteur);
   return (
     <>
       <NavBar />
@@ -62,7 +76,7 @@ const ProfilPage = () => {
             {/* <button onClick={handleLogout} className="button-delete">
                   Se déconnecter
                 </button> */}
-            <form action="">
+            <form method="post" onSubmit={handleSubmit}>
               <table>
                 <tr>
                   <td>Nom</td>
@@ -71,11 +85,11 @@ const ProfilPage = () => {
                       type="text"
                       name="nom"
                       id="nom"
-                      defaultValue={nomUser}
+                      value={getUser.nom}
                       //   onChange={(e) => setName(e.target.value)}
                       className="name-value"
                     />
-                    {/* <h3>{getRepas.nom}</h3> */}
+                    {/* <h3>{getUser.nom}</h3> */}
                   </td>
                 </tr>
                 <tr>
@@ -85,8 +99,8 @@ const ProfilPage = () => {
                       type="text"
                       name="ingredient"
                       id="ingredient"
-                      defaultValue={mailuser}
-                      //   onChange={(e) => setIngredient(e.target.value)}
+                      value={getUser.email}
+                      //   onChange={(e) => setEmail(e.target.value)}
                       className="name-value"
                     />
                   </td>
@@ -97,37 +111,41 @@ const ProfilPage = () => {
                     <input
                       type="text"
                       name="restaurant"
-                      value={restuser}
+                      defaultValue={getUser.restaurant}
                       className="name-value"
-                      //   onChange={(e) => setRestaurant(e.target.value)}
+                      onChange={(e) => setRestaurant(e.target.value)}
                     />
                   </td>
                 </tr>
                 <tr>
                   <td>Secteur</td>
                   <td>
-                    <input
-                      type="text"
-                      name="restaurant"
-                      value={secteuruser}
-                      className="name-value"
-                      //   onChange={(e) => setRestaurant(e.target.value)}
-                    />
+                    <select
+                      name="secteur"
+                      id="secteur"
+                      value={getUser.secteur}
+                      //   defaultValue={{
+                      //     value: getUser.secteur,
+                      //   }}
+                      onChange={(e) => {
+                        setSecteur(e.target.value);
+                      }}
+                    >
+                      <option value="Nord">Nord</option>
+                      <option value="Ouest">Ouest</option>
+                      <option value="Sud">Sud</option>
+                      <option value="Est">Est</option>
+                    </select>
                   </td>
                 </tr>
               </table>
 
               <div className="btn-foot">
-                {/* <div className="button-deconnexion" onClick={handleLogout}>
-                  <span>
-                    <a>Déconnexion</a>
+                {/* <div>
+                  <span className="button-register">
+                    <input type="submit" value={"Modifier"} />
                   </span>
                 </div> */}
-                <div className="button-deconnexion">
-                  <span>
-                    <Link to={"/repas"}>Enregistrer</Link>
-                  </span>
-                </div>
               </div>
             </form>
           </div>

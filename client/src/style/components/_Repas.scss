@@ -7,7 +7,7 @@
     height: 350px;
     border: 1px solid #000000;
     border-radius: 5px;
-    background-color: #ffffffc6;
+    background-color: #ffffffdd;
     transition: all 1s ease;
     transform: scale(1);
     align-items: center;
@@ -82,7 +82,7 @@
             left: 25px;
             width: 20%;
             background-color: rgb(26, 74, 35);
-            color: rgb(0, 0, 0);
+            color: rgb(255, 255, 255);
             &:hover{
                 color: rgb(26, 74, 35);
                 background-color: rgb(255, 255, 255);

@@ -25,11 +25,11 @@ const Repas = ({ nom, ingredient, image, restaurant, id }) => {
           <span>Ingrédient : {`${ingredient}`}</span>
         </div>
         <div>
-          <div className="button-edit">
+          <div>
             <Link
               style={{ textDecoration: "none" }}
               to={`/ficheRepas/${id}`}
-              className="logo-paiement"
+              className="button-edit"
             >
               <span>Détail</span>
             </Link>

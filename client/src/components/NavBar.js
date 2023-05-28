@@ -40,7 +40,9 @@ function NavBar() {
     const data = await res.json();
     setLoginData(data);
     localStorage.setItem("loginData", JSON.stringify(data));
+
     // si le restaurant n'existe pas encore
+
     navigate("/addProfil");
     // si le resto existe déjà
     // navigate("/profil")

@@ -5,6 +5,7 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { gapi } from "gapi-script";
 import NavBar from "../components/NavBar";
+import { useParams } from "react-router-dom";
 const PageLogin = () => {
   const navigate = useNavigate();
   gapi.load("client:auth2", () => {
@@ -30,7 +31,7 @@ const PageLogin = () => {
   const [nom, setName] = useState(nomUser);
   const [email, setEmail] = useState(mailuser);
   const [restaurant, setRestaurant] = useState();
-  const [secteur, setSecteur] = useState();
+  const [secteur, setSecteur] = useState("Nord");
   const handleSubmit = async (e) => {
     // Prevent the default submit and page reload
     e.preventDefault();
@@ -106,7 +107,7 @@ const PageLogin = () => {
                     <input
                       type="text"
                       name="restaurant"
-                      value={restaurant}
+                      defaultValue={restaurant}
                       onChange={(e) => setRestaurant(e.target.value)}
                       className="name-value"
                     />
@@ -118,9 +119,10 @@ const PageLogin = () => {
                     <select
                       name="secteur"
                       id="secteur"
-                      value={secteur}
+                      defaultValue={secteur}
                       onChange={(e) => {
                         setSecteur(e.target.value);
+                        // console.log(e.target.value);
                       }}
                     >
                       <option value="Nord">Nord</option>

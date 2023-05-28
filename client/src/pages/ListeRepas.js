@@ -7,14 +7,38 @@ import axios from "axios";
 const ListeRepas = () => {
   window.scrollTo(0, 0);
   let [data, setData] = useState([]);
-  // let [query, setQuery] = useState("e");
+  const [loginData, setLoginData] = useState(
+    localStorage.getItem("loginData")
+      ? JSON.parse(localStorage.getItem("loginData"))
+      : null
+  );
+  // const [getUser, setgetUser] = useState([]);
+  let myrestaurant;
+  const fetchGetUser = () => {
+    axios
+      .get(`http://localhost:5000/api/user/${loginData.email}`)
+      .then((response) => {
+        // setgetUser(response.data[0]);
+        console.log(response.data[0].restaurant);
+        myrestaurant = response.data[0].restaurant;
+      });
+  };
 
-  // let [sortMethod, setSortMethod] = useState("top");
-
+  useEffect(() => {
+    fetchGetUser();
+  }, []);
+  let result;
   const fetchData = () => {
     axios.get("http://localhost:5000/api/repas").then((response) => {
-      console.log(response.data);
-      setData(response.data);
+      // console.log(response.data);
+      // filtrer la liste
+      // console.log(myrestaurant);
+      result = response.data.filter(
+        (repas) => repas.restaurant === myrestaurant
+      );
+
+      console.log(result);
+      setData(result);
     });
   };
 

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Repas from "../components/Repas";
+import PublicRepas from "../components/PublicRepas";
 import NavBar from "../components/NavBar";
 import backImg from "../assets/img/repas-back.png";
 import { Link } from "react-router-dom";
@@ -121,7 +122,7 @@ const PageAccueil = () => {
             {searchInput.length > 1
               ? filteredResults.map((item, index) => {
                   return (
-                    <Repas
+                    <PublicRepas
                       key={index}
                       nom={item.nom}
                       ingredient={item.ingredient}
@@ -133,11 +134,12 @@ const PageAccueil = () => {
               : data &&
                 data.map((item, index) => {
                   return (
-                    <Repas
+                    <PublicRepas
                       key={index}
                       nom={item.nom}
                       ingredient={item.ingredient}
                       image={item.image}
+                      restaurant={item.restaurant}
                       id={item.id}
                     />
                   );
