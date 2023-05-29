@@ -4,7 +4,7 @@ import NavBar from "../components/NavBar";
 import backImg from "../assets/img/repas-back.png";
 import { Link } from "react-router-dom";
 import axios from "axios";
-// import FileBase64 from "react-file-base64";
+import FileBase64 from "react-file-base64";
 const FicheRepas = () => {
   window.scrollTo(0, 0);
 
@@ -41,10 +41,15 @@ const FicheRepas = () => {
   // update step
   // ----------------------
 
+  let oldImage = getRepas.image;
+  console.log(typeof getRepas.image);
   const [nom, setName] = useState();
   const [ingredient, setIngredient] = useState();
   const [restaurant, setRestaurant] = useState();
-  // const [image, setImage] = useState();
+  const [image, setImage] = useState();
+  useEffect(() => {
+    setImage(getRepas.image);
+  }, [getRepas.image]);
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log({ nom, ingredient, restaurant });
@@ -53,7 +58,7 @@ const FicheRepas = () => {
       .put(`http://localhost:5000/api/repas/${paramID.id}`, {
         nom,
         ingredient,
-        // image,
+        image,
         restaurant,
       })
       .then((response) => {
@@ -87,15 +92,15 @@ const FicheRepas = () => {
                     </div>
                     <div className="table-img">
                       <div className="image-bloc">
-                        <img src={img} alt="Logo-recipe" />
-                        {/* <FileBase64
+                        <img src={image} alt="Logo-recipe" />
+                        <FileBase64
                           type="file"
                           name="image"
                           multiple={false}
                           onDone={({ base64 }) => {
                             setImage(base64);
                           }}
-                        /> */}
+                        />
                       </div>
                       <table>
                         <tr>

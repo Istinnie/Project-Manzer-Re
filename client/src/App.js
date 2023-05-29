@@ -15,7 +15,7 @@ function App() {
 
       <div className="container mt-3">
         <Routes>
-          <Route path="/" element={<PageAccueil />} />
+          <Route path="/Project-Manzer-Re" element={<PageAccueil />} />
           <Route path="/repas" element={<ListeRepas />} />
           <Route path="/addProfil" element={<PageLogin />} />
           <Route path="/profil" element={<ProfilPage />} />

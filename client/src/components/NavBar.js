@@ -59,7 +59,7 @@ function NavBar() {
             <div>
               <ul>
                 <li>
-                  <Link to={"/"}>Accueil</Link>
+                  <Link to={"/Project-Manzer-Re"}>Accueil</Link>
                 </li>
                 <li>
                   <Link to={"/repas"}>Nos repas</Link>
@@ -90,7 +90,7 @@ function NavBar() {
             <div>
               <ul>
                 <li>
-                  <Link to={"/"}>Accueil</Link>
+                  <Link to={"/Project-Manzer-Re"}>Accueil</Link>
                 </li>
                 {/* <li>
                   <Link to={"/repas"}>Profil</Link>
