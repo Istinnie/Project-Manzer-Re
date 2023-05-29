@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { gapi } from "gapi-script";
-
+import ClipLoader from "react-spinners/ClipLoader";
 const PageLogin = () => {
   const navigate = useNavigate();
   gapi.load("client:auth2", () => {
@@ -24,18 +24,20 @@ const PageLogin = () => {
     navigate("/");
   };
 
-  let exist = false;
+  // test if user exists in db
+  const [Joke, setJoke] = useState([]);
+  const [loading, setLoading] = useState(false);
+
   const [getUser, setgetUser] = useState([]);
 
   const fetchGetUser = async () => {
     await axios
       .get(`http://localhost:5000/api/user/${loginData.email}`)
+      //.get(`http://localhost:5000/api/user/aaaaa`)
       .then((response) => {
-        if (response.data.length >= 1) {
-          exist = true; // faire un hook avec cette variable
-          setgetUser(response.data[0]);
-        }
-        console.log(getUser.restaurant);
+        setgetUser(response.data[0]);
+        setJoke([...Joke, response.data[0]]);
+        setLoading(false);
       });
   };
 
@@ -45,11 +47,13 @@ const PageLogin = () => {
 
   let nomUser = loginData.name,
     mailuser = loginData.email;
+
   // create new user and his restaurant
   const [nom, setName] = useState(nomUser);
   const [email, setEmail] = useState(mailuser);
-  const [restaurant, setRestaurant] = useState();
+  const [restaurant, setRestaurant] = useState("");
   const [secteur, setSecteur] = useState("Nord");
+
   const handleSubmit = async (e) => {
     // Prevent the default submit and page reload
     e.preventDefault();
@@ -79,7 +83,77 @@ const PageLogin = () => {
         // Handle response
       });
   };
+  // ---------------existe : cas 1 ---n'existe pas : cas 2-----------
 
+  let jokesArray, secteurArray, valideBtn;
+  console.log(Joke[0]?.length, Joke[0]);
+  if (typeof Joke[0] !== "undefined") {
+    // si l'utilisateur existe
+
+    jokesArray = Joke.map((el) => {
+      return (
+        <input
+          type="text"
+          name="restaurant"
+          value={el.restaurant}
+          className="name-value"
+        />
+      );
+    });
+    secteurArray = Joke.map((el) => {
+      return (
+        <select name="secteur" id="secteur" value={el.secteur} disabled>
+          <option value="Nord">Nord</option>
+          <option value="Ouest">Ouest</option>
+          <option value="Sud">Sud</option>
+          <option value="Est">Est</option>
+        </select>
+      );
+    });
+    valideBtn = Joke.map((el) => {
+      return <Link to={"/repas"}>Continuer</Link>;
+    });
+  } else {
+    // si l'utilisateur n'existe pas
+    jokesArray = Joke.map(() => {
+      return (
+        <input
+          type="text"
+          name="restaurant"
+          defaultValue={""}
+          onChange={(e) => setRestaurant(e.target.value)}
+          className="name-value"
+        />
+      );
+    });
+    secteurArray = Joke.map(() => {
+      return (
+        <select
+          name="secteur"
+          id="secteur"
+          defaultValue={secteur}
+          onChange={(e) => {
+            setSecteur(e.target.value);
+          }}
+        >
+          <option value="Nord">Nord</option>
+          <option value="Ouest">Ouest</option>
+          <option value="Sud">Sud</option>
+          <option value="Est">Est</option>
+        </select>
+      );
+    });
+    valideBtn = Joke.map((el) => {
+      return (
+        <input
+          type="submit"
+          value={"Enregistrer"}
+          style={{ marginTop: "0px" }}
+        />
+      );
+    });
+  }
+  // ---------------------------
   return (
     <>
       <div className="login-section">
@@ -124,59 +198,11 @@ const PageLogin = () => {
                 </tr>
                 <tr>
                   <td>Restaurant</td>
-                  <td>
-                    {exist ? (
-                      <input
-                        type="text"
-                        name="restaurant"
-                        defaultValue={""}
-                        onChange={(e) => setRestaurant(e.target.value)}
-                        className="name-value"
-                      />
-                    ) : (
-                      // si l'utilisateur existe
-                      <input
-                        type="text"
-                        name="restaurant"
-                        value={getUser.restaurant}
-                        className="name-value"
-                      />
-                    )}
-                  </td>
+                  <td>{loading ? <ClipLoader /> : jokesArray}</td>
                 </tr>
                 <tr>
                   <td>Secteur</td>
-                  <td>
-                    {exist ? (
-                      <select
-                        name="secteur"
-                        id="secteur"
-                        defaultValue={secteur}
-                        onChange={(e) => {
-                          setSecteur(e.target.value);
-                          // console.log(e.target.value);
-                        }}
-                      >
-                        <option value="Nord">Nord</option>
-                        <option value="Ouest">Ouest</option>
-                        <option value="Sud">Sud</option>
-                        <option value="Est">Est</option>
-                      </select>
-                    ) : (
-                      // si l'utilisateur existe
-                      <select
-                        name="secteur"
-                        id="secteur"
-                        value={getUser.secteur}
-                        disabled
-                      >
-                        <option value="Nord">Nord</option>
-                        <option value="Ouest">Ouest</option>
-                        <option value="Sud">Sud</option>
-                        <option value="Est">Est</option>
-                      </select>
-                    )}
-                  </td>
+                  <td>{loading ? <ClipLoader /> : secteurArray}</td>
                 </tr>
               </table>
 
@@ -184,15 +210,9 @@ const PageLogin = () => {
                 <div className="button-register" onClick={handleLogout}>
                   <span>Déconnexion</span>
                 </div>
-                {exist ? (
-                  <div className="button-register">
-                    <input type="submit" value={"Enregistrer"} />
-                  </div>
-                ) : (
-                  <div className="button-register">
-                    <Link to={"/repas"}>Continuer</Link>
-                  </div>
-                )}
+                <div className="button-register">
+                  {loading ? <ClipLoader /> : valideBtn}
+                </div>
               </div>
             </form>
           </div>
