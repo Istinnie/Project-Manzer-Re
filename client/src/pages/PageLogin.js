@@ -21,7 +21,7 @@ const PageLogin = () => {
   const handleLogout = () => {
     localStorage.removeItem("loginData");
     setLoginData(null);
-    navigate("/");
+    navigate("/Project-Manzer-Re");
   };
 
   // test if user exists in db

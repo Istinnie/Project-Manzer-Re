@@ -21,7 +21,7 @@ function NavBar() {
   const handleLogout = () => {
     localStorage.removeItem("loginData");
     setLoginData(null);
-    navigate("/");
+    navigate("/Project-Manzer-Re");
   };
 
   const handleFailure = (result) => {
