@@ -16,7 +16,7 @@ const PageAccueil = () => {
 
   const fetchData = () => {
     axios.get(process.env.REACT_APP_HOST).then((response) => {
-      console.log(response.data);
+      // console.log(response.data);
       setData(response.data);
       setLoading(false);
     });
@@ -31,19 +31,8 @@ const PageAccueil = () => {
     fetchData();
   };
 
-  // const searchInput = (e) => {
-  //   setQuery(e.target.value);
-  // };
-
-  // const topFlopClick = () => {
-  //   if (sortMethod === "top") {
-  //     setSortMethod("flop");
-  //   } else {
-  //     setSortMethod("top");
-  //   }
-  // };
   // ------------------------------
-  // search
+  //          Search Input
   // ------------------------------
   const [searchInput, setSearchInput] = useState("");
   const [filteredResults, setFilteredResults] = useState([]);
@@ -57,13 +46,84 @@ const PageAccueil = () => {
           .toLowerCase()
           .includes(searchInput.toLowerCase());
       });
-      console.log(filteredData);
+      // console.log(filteredData);
       setFilteredResults(filteredData);
     } else {
       setFilteredResults(data);
     }
   };
   // ------------------------------
+  //  Plan : Recherche par secteur
+  // ------------------------------
+  // si on sélectionne un secteur
+  /***
+   * 1) pouvoir récupérer la valeur de ce secteur
+   *
+   */
+  const [filterTags, setFilterTags] = useState([]);
+  const filterHandler = (event) => {
+    if (event.target.checked) {
+      setFilterTags([...filterTags, event.target.value]);
+    } else {
+      setFilterTags(
+        filterTags.filter((filterTag) => filterTag !== event.target.value)
+      );
+    }
+    // pour tous les éléments de l'object filterTags
+  };
+  // console.log(filterTags);
+
+  /** 2) on cherche les restaurants dans ce secteur, ce qui
+   * revient à " Chercher un user dont user.secteur = secteur.recherchée"
+   */
+  const [getUser, setgetUser] = useState([]);
+  const fetchGetUser = () => {
+    axios.get(`http://localhost:5000/api/user/`).then((response) => {
+      // console.log(response.data);
+      setgetUser(response.data);
+    });
+  };
+  useEffect(() => {
+    fetchGetUser();
+  }, []);
+  let result = []; // la liste des restaurants checkés ou filtrés
+
+  const [newData, setNewData] = useState(filteredResults);
+
+  const fetchRestaurant = () => {
+    let checkTotal = filterTags.length;
+    let userTotal = getUser.length;
+    if (checkTotal > 0) {
+      for (let i = 0; i <= checkTotal; i++) {
+        for (let j = 0; j <= userTotal; j++) {
+          if (getUser[j]?.secteur) {
+            //teste si le key secteur existe dans l'objet
+            if (filterTags[i] === getUser[j].secteur) {
+              // console.log(getUser[j].secteur, filterTags[i]);
+              result.push(getUser[j].restaurant);
+            }
+          }
+        }
+      }
+    }
+    if (result.length > 0) {
+      for (let k = 0; k <= result.length; k++) {
+        const filtered = data.filter((item) => item.restaurant === result[k]);
+        console.log(filtered);
+        // filtered renvoie la data filtrée
+      }
+    }
+
+    return result;
+  };
+  useEffect(() => {
+    fetchRestaurant();
+  }, []);
+  console.log(fetchRestaurant());
+
+  /* 3) si restaurant checké => trouvé, afficher tous les repas de ces restaurants
+   *
+   * ***/
 
   return (
     <>
@@ -95,27 +155,35 @@ const PageAccueil = () => {
                 {sortMethod.toUpperCase()}
               </button> */}
               <div className="form-secteur">
-                <label class="main">
+                <label className="main">
                   Nord
-                  <input type="checkbox" />
-                  <span class="geekmark"></span>
+                  <input
+                    type="checkbox"
+                    onChange={filterHandler}
+                    value="Nord"
+                  />
+                  <span className="geekmark"></span>
                 </label>
 
-                <label class="main">
+                <label className="main">
                   Ouest
-                  <input type="checkbox" />
-                  <span class="geekmark"></span>
+                  <input
+                    type="checkbox"
+                    onChange={filterHandler}
+                    value="Ouest"
+                  />
+                  <span className="geekmark"></span>
                 </label>
 
-                <label class="main">
+                <label className="main">
                   Sud
-                  <input type="checkbox" />
-                  <span class="geekmark"></span>
+                  <input type="checkbox" onChange={filterHandler} value="Sud" />
+                  <span className="geekmark"></span>
                 </label>
-                <label class="main">
+                <label className="main">
                   Est
-                  <input type="checkbox" />
-                  <span class="geekmark"></span>
+                  <input type="checkbox" onChange={filterHandler} value="Est" />
+                  <span className="geekmark"></span>
                 </label>
               </div>
             </form>
@@ -135,6 +203,20 @@ const PageAccueil = () => {
                     key={index}
                     nom={item.nom}
                     ingredient={item.ingredient}
+                    restaurant={item.restaurant}
+                    image={item.image}
+                    id={item.id}
+                  />
+                );
+              })
+            ) : result.length > 0 ? (
+              newData.map((item, index) => {
+                return (
+                  <PublicRepas
+                    key={index}
+                    nom={item.nom}
+                    ingredient={item.ingredient}
+                    restaurant={item.restaurant}
                     image={item.image}
                     id={item.id}
                   />

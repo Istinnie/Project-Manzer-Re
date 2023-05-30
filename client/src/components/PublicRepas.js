@@ -3,13 +3,13 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 const PublicRepas = ({ nom, ingredient, image, restaurant, id }) => {
   const [repas, setRepas] = useState([]);
-  const removeData = (id) => {
-    axios.delete(`http://localhost:5000/api/repas/${id}`).then((res) => {
-      alert("Repas supprimé avec succès");
-      setRepas(res.data);
-      window.location.reload();
-    });
-  };
+  // const removeData = (id) => {
+  //   axios.delete(`http://localhost:5000/api/repas/${id}`).then((res) => {
+  //     alert("Repas supprimé avec succès");
+  //     setRepas(res.data);
+  //     window.location.reload();
+  //   });
+  // };
   return (
     <div className="recipe" style={{ width: "170px", height: "300px" }}>
       <h3>{nom}</h3>

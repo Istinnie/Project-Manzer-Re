@@ -2,13 +2,15 @@ import React, { useEffect, useState } from "react";
 import Repas from "../components/Repas";
 import NavBar from "../components/NavBar";
 import backImg from "../assets/img/repas-back.png";
-// import { Link } from "react-router-dom";
 import ClipLoader from "react-spinners/ClipLoader";
 import axios from "axios";
+
 const ListeRepas = () => {
   window.scrollTo(0, 0);
+
   const [loading, setLoading] = useState(true);
   let [data, setData] = useState([]);
+
   const [loginData, setLoginData] = useState(
     localStorage.getItem("loginData")
       ? JSON.parse(localStorage.getItem("loginData"))
