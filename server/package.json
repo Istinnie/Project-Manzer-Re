@@ -1,13 +1,12 @@
 {
   "name": "nodejs-express-mongodb",
   "version": "1.0.0",
-  "description": "",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "concurrently \"npm run server\" \"cd ../client && npm start\"",
-    "server":"nodemon server.js"
-},
+    "server": "nodemon server.js"
+  },
   "author": "Istinnie Velonkasina",
   "license": "ISC",
   "dependencies": {
@@ -21,5 +20,7 @@
   },
   "devDependencies": {
     "nodemon": "^2.0.22"
-  }
+  },
+  "keywords": [],
+  "description": ""
 }
