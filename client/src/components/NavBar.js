@@ -21,7 +21,7 @@ function NavBar() {
   const handleLogout = () => {
     localStorage.removeItem("loginData");
     setLoginData(null);
-    navigate("/Project-Manzer-Re");
+    navigate("/");
   };
 
   const handleFailure = (result) => {
@@ -59,7 +59,7 @@ function NavBar() {
             <div>
               <ul>
                 <li>
-                  <Link to={"/Project-Manzer-Re"}>Accueil</Link>
+                  <Link to={"/"}>Accueil</Link>
                 </li>
                 <li>
                   <Link to={"/repas"}>Nos repas</Link>
@@ -90,7 +90,7 @@ function NavBar() {
             <div>
               <ul>
                 <li>
-                  <Link to={"/Project-Manzer-Re"}>Accueil</Link>
+                  <Link to={"/"}>Accueil</Link>
                 </li>
                 {/* <li>
                   <Link to={"/repas"}>Profil</Link>
