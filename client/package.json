@@ -1,6 +1,6 @@
 {
   "name": "client",
-  "proxy": "http://localhost:5000/",
+  "proxy": "https://manzer-re-app.vercel.app/",
   "version": "0.1.0",
   "private": true,
   "homepage": "https://manzer-re-front-2wr08snz3-istinnie.vercel.app/",
