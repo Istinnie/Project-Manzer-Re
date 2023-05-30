@@ -78,7 +78,7 @@ const PageAccueil = () => {
    */
   const [getUser, setgetUser] = useState([]);
   const fetchGetUser = () => {
-    axios.get(`http://localhost:5000/api/user/`).then((response) => {
+    axios.get(process.env.REACT_APP_HOST_USER).then((response) => {
       // console.log(response.data);
       setgetUser(response.data);
     });

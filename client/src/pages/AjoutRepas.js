@@ -15,7 +15,7 @@ const AjoutRepas = () => {
 
   const fetchGetUser = async () => {
     await axios
-      .get(`http://localhost:5000/api/user/${loginData.email}`)
+      .get(`${process.env.REACT_APP_HOST_USER}/${loginData.email}`)
       .then((response) => {
         setgetUser(response.data[0]);
       });

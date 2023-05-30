@@ -4,7 +4,7 @@ import axios from "axios";
 const Repas = ({ nom, ingredient, image, restaurant, id }) => {
   const [repas, setRepas] = useState([]);
   const removeData = (id) => {
-    axios.delete(`http://localhost:5000/api/repas/${id}`).then((res) => {
+    axios.delete(`${process.env.REACT_APP_HOST}${id}`).then((res) => {
       alert("Repas supprimé avec succès");
       setRepas(res.data);
       window.location.reload();

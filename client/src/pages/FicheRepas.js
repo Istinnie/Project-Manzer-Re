@@ -55,7 +55,7 @@ const FicheRepas = () => {
     console.log({ nom, ingredient, restaurant });
 
     await axios
-      .put(`http://localhost:5000/api/repas/${paramID.id}`, {
+      .put(`${process.env.REACT_APP_HOST}/${paramID.id}`, {
         nom,
         ingredient,
         image,
