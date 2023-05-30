@@ -185,7 +185,7 @@ const PageAccueil = () => {
                 <ClipLoader speedMultiplier={0.5} />
                 <span>Chargement ...</span>
               </div>
-            ) : searchInput.length > 1 ? (
+            ) : searchInput.length > 1 && result.length <= 0 ? (
               filteredResults.map((item, index) => {
                 return (
                   <PublicRepas
@@ -198,9 +198,28 @@ const PageAccueil = () => {
                   />
                 );
               })
-            ) : result.length > 0 ? (
+            ) : result.length > 0 && searchInput.length <= 1 ? (
               data &&
               data.map((item, index) => {
+                for (let i = 0; i <= data.length; i++) {
+                  for (let j = 0; j <= result.length; j++) {
+                    if (item.restaurant == result[j]) {
+                      return (
+                        <PublicRepas
+                          key={index}
+                          nom={item.nom}
+                          ingredient={item.ingredient}
+                          restaurant={item.restaurant}
+                          image={item.image}
+                          id={item.id}
+                        />
+                      );
+                    }
+                  }
+                }
+              })
+            ) : searchInput.length > 1 && result.length > 0 ? (
+              filteredResults.map((item, index) => {
                 for (let i = 0; i <= data.length; i++) {
                   for (let j = 0; j <= result.length; j++) {
                     if (item.restaurant == result[j]) {
