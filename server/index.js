@@ -18,7 +18,7 @@ function upsert(array, item) {
 }
 // ------------
 var corsOptions = {
-  origin: "https://manzer-re-front.vercel.app/",
+  origin: "*",
 };
 app.use(cors(corsOptions));
 // parse requests of content-type - application/json
@@ -35,6 +35,8 @@ app.use(express.json());
 
 // simple route
 app.get("/", (req, res) => {
+  res.setHeader("Content-Type", "text/html");
+  res.setHeader("Cache-Control", "s-max-age=1, stale-while-revalidate");
   res.json({ message: "Bienvenue sur Manzer.re" });
 });
 
@@ -47,6 +49,8 @@ app.post("/api/google-login", async (req, res) => {
   });
   const { name, email, picture } = ticket.getPayload();
   upsert(users, { name, email, picture });
+  res.setHeader("Content-Type", "text/html");
+  res.setHeader("Cache-Control", "s-max-age=1, stale-while-revalidate");
   res.status(201);
   res.json({ name, email, picture });
 });

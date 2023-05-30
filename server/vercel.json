@@ -19,7 +19,7 @@
     ],
     "routes":[
         {
-            "src":"/(.*)","dest":"/"
+            "source":"/(.*)","destination":"/"
         }
     ]
     
