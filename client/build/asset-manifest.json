@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/Project-Manzer-Re/static/css/main.7bb28ed8.css",
-    "main.js": "/Project-Manzer-Re/static/js/main.3195d826.js",
+    "main.css": "/Project-Manzer-Re/static/css/main.dbf66c80.css",
+    "main.js": "/Project-Manzer-Re/static/js/main.d49ae61d.js",
     "static/media/repas-back.png": "/Project-Manzer-Re/static/media/repas-back.b98dc74ab7a99b2d2754.png",
     "static/media/logo-login.png": "/Project-Manzer-Re/static/media/logo-login.c94bc890e266be7eece7.png",
     "index.html": "/Project-Manzer-Re/index.html",
-    "main.7bb28ed8.css.map": "/Project-Manzer-Re/static/css/main.7bb28ed8.css.map",
-    "main.3195d826.js.map": "/Project-Manzer-Re/static/js/main.3195d826.js.map"
+    "main.dbf66c80.css.map": "/Project-Manzer-Re/static/css/main.dbf66c80.css.map",
+    "main.d49ae61d.js.map": "/Project-Manzer-Re/static/js/main.d49ae61d.js.map"
   },
   "entrypoints": [
-    "static/css/main.7bb28ed8.css",
-    "static/js/main.3195d826.js"
+    "static/css/main.dbf66c80.css",
+    "static/js/main.d49ae61d.js"
   ]
 }
