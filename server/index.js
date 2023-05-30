@@ -26,6 +26,12 @@ app.use(bodyParser.json());
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
+
+app.get("/cors", (req, res) => {
+  res.set("Access-Control-Allow-Origin", "https://manzer-re-app.vercel.app");
+  res.send({ msg: "This has CORS enabled " });
+});
+
 // simple route
 app.get("/", (req, res) => {
   res.json({ message: "Bienvenue sur Manzer.re" });
