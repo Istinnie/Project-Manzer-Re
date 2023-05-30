@@ -27,11 +27,11 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.get("/cors", (req, res) => {
-  res.set("Access-Control-Allow-Origin", "https://manzer-re-app.vercel.app");
-  res.setHeader("Permissions-Policy", "ch-ua-form-factor");
-  res.send({ msg: "This has CORS enabled " });
-});
+// app.get("/cors", (req, res) => {
+//   res.set("Access-Control-Allow-Origin", "https://manzer-re-app.vercel.app");
+//   res.setHeader("Permissions-Policy", "ch-ua-form-factor");
+//   res.send({ msg: "This has CORS enabled " });
+// });
 
 // simple route
 app.get("/", (req, res) => {
