@@ -3,9 +3,11 @@ import Repas from "../components/Repas";
 import NavBar from "../components/NavBar";
 import backImg from "../assets/img/repas-back.png";
 // import { Link } from "react-router-dom";
+import ClipLoader from "react-spinners/ClipLoader";
 import axios from "axios";
 const ListeRepas = () => {
   window.scrollTo(0, 0);
+  const [loading, setLoading] = useState(true);
   let [data, setData] = useState([]);
   const [loginData, setLoginData] = useState(
     localStorage.getItem("loginData")
@@ -29,7 +31,7 @@ const ListeRepas = () => {
   }, []);
   let result;
   const fetchData = () => {
-    axios.get("http://localhost:5000/api/repas").then((response) => {
+    axios.get(process.env.REACT_APP_HOST).then((response) => {
       // console.log(response.data);
       // filtrer la liste
       // console.log(myrestaurant);
@@ -39,6 +41,7 @@ const ListeRepas = () => {
 
       console.log(result);
       setData(result);
+      setLoading(false);
     });
   };
 
@@ -102,32 +105,39 @@ const ListeRepas = () => {
         </div>
         <section>
           <div className="repas-container">
-            {searchInput.length > 1
-              ? filteredResults.map((item, index) => {
-                  return (
-                    <Repas
-                      key={index}
-                      nom={item.nom}
-                      ingredient={item.ingredient}
-                      image={item.image}
-                      restaurant={item.restaurant}
-                      id={item.id}
-                    />
-                  );
-                })
-              : data &&
-                data.map((item, index) => {
-                  return (
-                    <Repas
-                      key={index}
-                      nom={item.nom}
-                      ingredient={item.ingredient}
-                      image={item.image}
-                      restaurant={item.restaurant}
-                      id={item.id}
-                    />
-                  );
-                })}
+            {loading ? (
+              <div className="spin-center">
+                <ClipLoader speedMultiplier={0.5} />
+                <span>Chargement ...</span>
+              </div>
+            ) : searchInput.length > 1 ? (
+              filteredResults.map((item, index) => {
+                return (
+                  <Repas
+                    key={index}
+                    nom={item.nom}
+                    ingredient={item.ingredient}
+                    image={item.image}
+                    restaurant={item.restaurant}
+                    id={item.id}
+                  />
+                );
+              })
+            ) : (
+              data &&
+              data.map((item, index) => {
+                return (
+                  <Repas
+                    key={index}
+                    nom={item.nom}
+                    ingredient={item.ingredient}
+                    image={item.image}
+                    restaurant={item.restaurant}
+                    id={item.id}
+                  />
+                );
+              })
+            )}
           </div>
         </section>
       </div>

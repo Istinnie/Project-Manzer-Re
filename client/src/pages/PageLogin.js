@@ -26,13 +26,13 @@ const PageLogin = () => {
 
   // test if user exists in db
   const [Joke, setJoke] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const [getUser, setgetUser] = useState([]);
 
   const fetchGetUser = async () => {
     await axios
-      .get(`http://localhost:5000/api/user/${loginData.email}`)
+      .get(process.env.REACT_APP_HOST_USER + "/" + loginData.email)
       //.get(`http://localhost:5000/api/user/aaaaa`)
       .then((response) => {
         setgetUser(response.data[0]);
@@ -65,7 +65,7 @@ const PageLogin = () => {
     });
     // Handle validations
     await axios
-      .post("http://localhost:5000/api/user", {
+      .post(process.env.REACT_APP_HOST_USER, {
         nom,
         email,
         restaurant,

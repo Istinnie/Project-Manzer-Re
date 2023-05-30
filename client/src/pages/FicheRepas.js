@@ -16,7 +16,7 @@ const FicheRepas = () => {
 
   const fetchGetRepas = async () => {
     await axios
-      .get(`http://localhost:5000/api/repas/${paramID.id}`)
+      .get(process.env.REACT_APP_HOST + "/" + paramID.id)
       .then((response) => {
         setgetRepas(response.data);
         // console.log(response.data);

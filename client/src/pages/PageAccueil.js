@@ -5,17 +5,20 @@ import NavBar from "../components/NavBar";
 import backImg from "../assets/img/repas-back.png";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import ClipLoader from "react-spinners/ClipLoader";
 const PageAccueil = () => {
   window.scrollTo(0, 0);
+  const [loading, setLoading] = useState(true);
 
   let [data, setData] = useState([]);
   let [query, setQuery] = useState("e");
   // let [sortMethod, setSortMethod] = useState("top");
 
   const fetchData = () => {
-    axios.get("http://localhost:5000/api/repas").then((response) => {
+    axios.get(process.env.REACT_APP_HOST).then((response) => {
       console.log(response.data);
       setData(response.data);
+      setLoading(false);
     });
   };
 
@@ -61,6 +64,7 @@ const PageAccueil = () => {
     }
   };
   // ------------------------------
+
   return (
     <>
       <NavBar />
@@ -119,51 +123,38 @@ const PageAccueil = () => {
         </div>
         <section>
           <div className="repas-container">
-            {searchInput.length > 1
-              ? filteredResults.map((item, index) => {
-                  return (
-                    <PublicRepas
-                      key={index}
-                      nom={item.nom}
-                      ingredient={item.ingredient}
-                      image={item.image}
-                      id={item.id}
-                    />
-                  );
-                })
-              : data &&
-                data.map((item, index) => {
-                  return (
-                    <PublicRepas
-                      key={index}
-                      nom={item.nom}
-                      ingredient={item.ingredient}
-                      image={item.image}
-                      restaurant={item.restaurant}
-                      id={item.id}
-                    />
-                  );
-                })}
-            {/* {data &&
-              data
-                // .sort((a, b) => {
-                //   if (sortMethod === "top") {
-                //     return b.vote_average - a.vote_average;
-                //   } else {
-                //     return a.vote_average - b.vote_average;
-                //   }
-                // })
-                .map((repas, index) => {
-                  return (
-                    <Repas
-                      key={index}
-                      nom={repas.nom}
-                      ingredient={repas.ingredient}
-                      image={repas.image}
-                      id={repas.id}
-                    />
-                  );
-                })} */}
+            {loading ? (
+              <div className="spin-center">
+                <ClipLoader speedMultiplier={0.5} />
+                <span>Chargement ...</span>
+              </div>
+            ) : searchInput.length > 1 ? (
+              filteredResults.map((item, index) => {
+                return (
+                  <PublicRepas
+                    key={index}
+                    nom={item.nom}
+                    ingredient={item.ingredient}
+                    image={item.image}
+                    id={item.id}
+                  />
+                );
+              })
+            ) : (
+              data &&
+              data.map((item, index) => {
+                return (
+                  <PublicRepas
+                    key={index}
+                    nom={item.nom}
+                    ingredient={item.ingredient}
+                    image={item.image}
+                    restaurant={item.restaurant}
+                    id={item.id}
+                  />
+                );
+              })
+            )}
           </div>
         </section>
       </div>
