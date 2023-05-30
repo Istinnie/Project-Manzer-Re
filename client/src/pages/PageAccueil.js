@@ -87,9 +87,6 @@ const PageAccueil = () => {
     fetchGetUser();
   }, []);
   let result = []; // la liste des restaurants checkés ou filtrés
-
-  const [newData, setNewData] = useState(filteredResults);
-
   const fetchRestaurant = () => {
     let checkTotal = filterTags.length;
     let userTotal = getUser.length;
@@ -106,14 +103,6 @@ const PageAccueil = () => {
         }
       }
     }
-    if (result.length > 0) {
-      for (let k = 0; k <= result.length; k++) {
-        const filtered = data.filter((item) => item.restaurant === result[k]);
-        console.log(filtered);
-        // filtered renvoie la data filtrée
-      }
-    }
-
     return result;
   };
   useEffect(() => {
@@ -210,17 +199,24 @@ const PageAccueil = () => {
                 );
               })
             ) : result.length > 0 ? (
-              newData.map((item, index) => {
-                return (
-                  <PublicRepas
-                    key={index}
-                    nom={item.nom}
-                    ingredient={item.ingredient}
-                    restaurant={item.restaurant}
-                    image={item.image}
-                    id={item.id}
-                  />
-                );
+              data &&
+              data.map((item, index) => {
+                for (let i = 0; i <= data.length; i++) {
+                  for (let j = 0; j <= result.length; j++) {
+                    if (item.restaurant == result[j]) {
+                      return (
+                        <PublicRepas
+                          key={index}
+                          nom={item.nom}
+                          ingredient={item.ingredient}
+                          restaurant={item.restaurant}
+                          image={item.image}
+                          id={item.id}
+                        />
+                      );
+                    }
+                  }
+                }
               })
             ) : (
               data &&
